@@ -13,7 +13,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 regr = linear_model.LinearRegression()
 
-# Train the model using the training sets
 regr.fit(X_train, y_train)
 
 # Make predictions using the testing set
@@ -25,4 +24,4 @@ print('Coefficients: \n', regr.coef_)
 print("Mean squared error: %.2f"
       % mean_squared_error(y_test, y_pred))
 # Explained variance score: 1 is perfect prediction
-print('Variance score: %.2f' % r2_score(y_test, y_pred))
+print('Variance: %.2f' % r2_score(y_test, y_pred))
