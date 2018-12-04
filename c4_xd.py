@@ -1,5 +1,7 @@
 import pygame, random, copy
 
+print("loading trash talk module...")
+
 # Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -68,9 +70,9 @@ while not done:
                 for b in range(5):
                     grids[a][b] = 1
             screen.fill(RED)
-            font = pygame.font.SysFont('Calibri', 25, True, False)
+            font = pygame.font.SysFont('Calibri', 50, True, False)
             text = font.render("Congratulations cheater", True, WHITE)
-            screen.blit(text, [200, 100])
+            screen.blit(text, [250, 100])
         elif (check_won(grids, 2, 5) or
                 diagcheck_won(grids, 2, 5) or
                 diagcheck_won(grids[::-1], 2, 5)):
@@ -78,9 +80,9 @@ while not done:
                 for b in range(5):
                     grids[a][b] = 2
             screen.fill(BLACK)
-            font = pygame.font.SysFont('Calibri', 25, True, False)
+            font = pygame.font.SysFont('Calibri', 50, True, False)
             text = font.render("YOU LOSE", True, WHITE)
-            screen.blit(text, [200, 100])
+            screen.blit(text, [250, 100])
         return
 
 
@@ -160,11 +162,15 @@ while not done:
                 potential.append(i)
         # if there are no potential moves, play a random space
         if (len(potential) == 0):
-            move = random.randint(0, 5)
+            found = 0
+            move = random.randint(0, 4)
             try:
-                while (temp[0][move] != 0):
-                    move = random.randint(0, 5)
-                    return move
+                while(found == 0):
+                    if (temp[0][move] != 0):
+                        move = random.randint(0, 4)
+                    else:
+                        return move
+                return move
             except IndexError:
                 print("move: ", move)
         else:
@@ -194,13 +200,17 @@ while not done:
             if (temp[0][z] == 0):
                 possible_valid = 1
         if (possible_valid == 0):
-            move = random.randint(0, n)
+            move = random.randint(0, 4)
+            found = 0
             try:
-                while (temp[0][move] != 0):
-                    move = random.randint(0, n)
+                while(found == 0):
+                    if (temp[0][move] != 0):
+                        move = random.randint(0, 4)
+                    else:
+                        return move
                 return move
             except IndexError:
-                print("move: ", move)
+                print("move potential: ", move)
         move = random.choice(possible_moves)
         while (temp[0][move] != 0):
             move = random.choice(possible_moves)
